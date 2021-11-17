@@ -95,6 +95,7 @@ def missions(request, mission_id = ''):
         return JsonResponse(updated_mission.JSON())
 
     elif request.method == "DELETE":
+        import pdb; pdb.set_trace()
         mission_data = json.loads(request.body)
         mission_to_delete = Missions.objects.get(id=mission_data['mission_id'])
         mission_to_delete.delete()
