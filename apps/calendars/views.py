@@ -95,9 +95,7 @@ def missions(request, mission_id = ''):
         return JsonResponse(updated_mission.JSON())
 
     elif request.method == "DELETE":
-        import pdb; pdb.set_trace()
-        mission_data = json.loads(request.body)
-        mission_to_delete = Missions.objects.get(id=mission_data['mission_id'])
+        mission_to_delete = Missions.objects.get(id=mission_id)
         mission_to_delete.delete()
         return JsonResponse({'foo':'bar'}, safe=False)
     
@@ -134,7 +132,6 @@ def goals(request, goal_id = ''):
         return JsonResponse(updated_goal.JSON())
 
     elif request.method == "DELETE":
-        goal_data = json.loads(request.body)
-        goal_to_delete = Goals.objects.get(id=goal_data['goal_id'])
+        goal_to_delete = Goals.objects.get(id=goal_id)
         goal_to_delete.delete()
         return JsonResponse({'foo':'bar'}, safe=False)

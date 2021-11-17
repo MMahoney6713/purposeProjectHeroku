@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '#b1a!#&uc7k=ih7-if!z#i$i193)ok
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['life-on-purpose.herokuapp.com']
+ALLOWED_HOSTS = ['life-on-purpose.herokuapp.com', '127.0.0.1', '.localhost']
 
 
 # Application definition

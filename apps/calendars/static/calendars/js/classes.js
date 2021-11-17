@@ -130,7 +130,7 @@ class Mission {
     }
 
     static async delete(missionID) {
-        const response = await axios.delete(`${BASE_URL}/${Mission.missionsUrl}`, { data: { 'mission_id': missionID }, headers: { 'X-CSRFToken': csrftoken } });
+        const response = await axios.delete(`${BASE_URL}/${Mission.missionsUrl}/${missionID}`, { headers: { 'X-CSRFToken': csrftoken } });
         return response;
     }
 }
@@ -197,7 +197,7 @@ class Goal {
     }
 
     static async delete(goalID) {
-        const response = await axios.delete(`${BASE_URL}/${Goal.goalsUrl}`, { data: { 'goal_id': goalID }, headers: { 'X-CSRFToken': csrftoken } });
+        const response = await axios.delete(`${BASE_URL}/${Goal.goalsUrl}/${goalID}`, { headers: { 'X-CSRFToken': csrftoken } });
         return response;
     }
 }
