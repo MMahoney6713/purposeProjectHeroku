@@ -24,10 +24,6 @@ table * {
     overflow: visible;
 }
 
-.btn-mission-delete {
-    padding-left: 1em;
-}
-
 .hidden {
     display: none;
 }
