@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '#b1a!#&uc7k=ih7-if!z#i$i193)ok
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cryptic-waters-40085.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['life-on-purpose.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -58,7 +58,7 @@ AUTH_APPS = [
 
 INSTALLED_APPS += AUTH_APPS
 
-SITE_ID = 2
+SITE_ID = 1
 
 AUTH_USER_MODEL = 'users.User'
 
