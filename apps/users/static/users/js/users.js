@@ -2,7 +2,7 @@ $(async function() {
 
     // axios.defaults.xsrfHeaderName = "X-CSRFToken";
     // axios.defaults.withCredentials = true;
-    const BASE_URL = 'http://127.0.0.1:8000';
+    const BASE_URL = window.location.origin;
     const csrftoken = Cookies.get('csrftoken');
 
     $('#registerBtn').on('click', async function (event) {
