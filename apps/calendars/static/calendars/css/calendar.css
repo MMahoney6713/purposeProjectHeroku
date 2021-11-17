@@ -1,0 +1,37 @@
+table * {
+    font-size: 1em;
+}
+
+.milestone {
+    font-size: .8em;
+}
+
+.milestone-row {
+    height: 4.5em;
+    font-size: 1em;
+}
+
+.calendar-col {
+    width: 14.29%;
+}
+
+.dropdown-item:hover {
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.overflow {
+    overflow: visible;
+}
+
+.btn-mission-delete {
+    padding-left: 1em;
+}
+
+.hidden {
+    display: none;
+}
+
+.month-nav {
+    
+}

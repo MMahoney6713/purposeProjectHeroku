@@ -1,0 +1,235 @@
+{% extends 'main-template.html' %}
+
+{% block title %}On Purpose{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- Left Side of Page: -->
+        <div class="col-lg-7">
+
+            <!-- Monthly Views: -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Monthly View:</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive month-views"></div>
+                    <div class="month-nav d-flex justify-content-center pt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0275d8" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                        </svg>
+                        <p class="px-2"></p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0275d8" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Side of Page:  -->
+        <div class="col-lg-5">
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Mission Statement Summary:</h6>
+                </div>
+                <div class="card-body" id="missions-list">
+                    <div>
+                        <p>
+                            Your <a href="https://www.shortform.com/blog/personal-mission-statement-7-habits/">personal mission</a> characterizes the life that you want to lead, the character traits you want to embody, and the impact that you want to have on those around you. As you identify and add missions below,you will be creating reminders to yourself of what your ultimate goals are. 
+                        </p>  
+                    </div>
+                    <div class="my-2"></div>
+
+                    <a href="#" class="btn btn-success btn-icon-split" id="missions-btn">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Add Mission</span>
+                    </a>
+
+                    <div class="my-3"></div>
+                </div>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Missional Goals:</h6>
+                </div>
+                <div class="card-body" id="goals-list">
+                    <div>
+                        <p>As you refine your personal missions, your missional goals will act as markers along the trail on your journey towards your personal missions. Each missional goal you add should act as your "next marker" on your way to your mission.
+                        </p>
+                    </div>
+                    <div class="my-2"></div>
+                    
+                    <a href="#" class="btn btn-success btn-icon-split" id="goals-btn">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Add Goal</span>
+                    </a>
+
+                    <div class="my-3"></div>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+
+    <!-- Milestone Modal -->
+    <div class="modal fade milestone-modal" id="milestone-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered edit-milestone-modal-content" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Create/Edit Milestone</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="" id="milestone-form" action="/milestones" method="POST"> {% csrf_token %}
+
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label for="milestone-month" class="col-sm col-form-label">Month:</label>
+                                <div class="col-sm mb-6 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="milestone-month"
+                                        value="1">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="milestone-day" class="col-sm col-form-label">Day:</label>
+                                <div class="col-sm mb-6 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="milestone-day"
+                                        value="1">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="milestone-year" class="col-sm col-form-label">Year:</label>
+                                <div class="col-sm mb-6 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="milestone-year"
+                                        value="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row px-3">
+                            <label for="milestone-title" class="col-sm-3 col-form-label">Title:</label>
+                            <div class="col-sm-8 mb-6 mb-sm-0">
+                                <input type="text" class="form-control form-control-user" id="milestone-title"
+                                    placeholder="Title">
+                            </div>
+                        </div>
+
+                        <div class="form-group row px-3 hidden">
+                            <label for="milestone-goal" class="col-sm-3 col-form-label">Goal:</label>
+                            <div class="col-sm-8 mb-6 mb-sm-0">
+                                <input type="text" class="form-control form-control-user" id="milestone-goal"
+                                    placeholder="Goal">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-milestone-cancel" data-dismiss="modal">Cancel</button>
+                    <button form="milestone-form" type="button" class="btn btn-success btn-milestone-create">Save Milestone</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Missions Modal -->
+    <div class="modal fade mission-modal" id="mission-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered edit-mission-modal-content" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Create/Edit Mission</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="" id="mission-form" action="/missions" method="POST"> {% csrf_token %}
+
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="mission-title" class="col-sm col-form-label">Title:</label>
+                                <div class="col-sm mb-6 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="mission-title">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="mission-description" class="col-sm col-form-label">Description:</label>
+                                <div class="col-sm mb-6 mb-sm-0">
+                                    <textarea type="textarea" class="form-control form-control-user" id="mission-description" rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-mission-cancel" data-dismiss="modal">Cancel</button>
+                    <button form="mission-form" type="button" class="btn btn-success btn-mission-create">Save Mission</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goals Modal -->
+    <div class="modal fade goal-modal" id="goal-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered edit-goal-modal-content" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Create/Edit Goal</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="" id="goal-form" action="/goals" method="POST"> {% csrf_token %}
+
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="goal-title" class="col-sm col-form-label">Title:</label>
+                                <div class="col-sm mb-6 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="goal-title">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="goal-description" class="col-sm col-form-label">Description:</label>
+                                <div class="col-sm mb-6 mb-sm-0">
+                                    <textarea type="textarea" class="form-control form-control-user" id="goal-description" rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-goal-cancel" data-dismiss="modal">Cancel</button>
+                    <button form="goal-form" type="button" class="btn btn-success btn-goal-create">Save Goal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% load static %}
+<script src="{% static 'calendars/js/classes.js' %}"></script>
+<script src="{% static 'calendars/js/calendars.js' %}"></script>
+<script src="{% static 'calendars/js/milestones.js' %}"></script>
+<script src="{% static 'calendars/js/missions.js' %}"></script>
+<script src="{% static 'calendars/js/goals.js' %}"></script>
+<script src="{% static 'users/js/users.js' %}"></script>
+{% endblock %}
