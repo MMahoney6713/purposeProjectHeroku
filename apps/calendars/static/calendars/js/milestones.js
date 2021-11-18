@@ -3,10 +3,6 @@ $(function () {
     // Helpful jQuery objects for later use
     const monthlyViewDiv = $('.month-views');
     const milestoneModal = $('#milestone-modal')
-
-    const BASE_URL = window.location.origin;
-    const csrftoken = Cookies.get('csrftoken');
-
     
     
     /////////////////////////////////////////////////////////////////////////////////////
@@ -16,17 +12,22 @@ $(function () {
     monthlyViewDiv.on('click', 'td.milestone-space', async function (event) {
         target = $(event.target);
         const clickedCalendarCell = $(event.target).closest('td');
+
         if (target.is('td')) {
             tempMilestone = showTemporaryMilestone(clickedCalendarCell);
-            setupAndShowModal(clickedCalendarCell, tempMilestone, 'post', milestoneID='');
+            setupAndShowModal(clickedCalendarCell, tempMilestone, 'post', milestone={});
+
         } else if (target.is('a')) {
             milestoneID = target.parent().parent().data('id');
+
             if (target.hasClass('milestone-delete')) {
-                await deleteMilestone(milestoneID);
+                await Milestone.delete(milestoneID);
                 target.parent().parent().remove();
+
             } else if (target.hasClass('milestone-update')) {
                 tempMilestone = target.parent().parent();
-                setupAndShowModal(clickedCalendarCell, tempMilestone, 'put', milestoneID)
+                const milestone = await Milestone.getOne(milestoneID);
+                setupAndShowModal(clickedCalendarCell, tempMilestone, 'put', milestone)
             }
         }
     })
@@ -37,16 +38,21 @@ $(function () {
         return tempMilestone;
     }
 
-    function setupAndShowModal(calendarCell, tempMilestone, requestType, milestoneID) {
-        milestoneModal.modal('show')
+    function setupAndShowModal(calendarCell, tempMilestone, requestType, milestone) {
+        milestoneModal.modal('show');
         const [year, month, day] = calendarCell.attr('id').split('-'); 
-        $('#milestone-year').val(year)
-        $('#milestone-month').val(month)
-        $('#milestone-day').val(day)
-        addModalListeners(milestoneModal, calendarCell, tempMilestone, requestType, milestoneID);
+        $('#milestone-year').val(year);
+        $('#milestone-month').val(month);
+        $('#milestone-day').val(day);
+
+        if (milestone) {
+            $('#milestone-title').val(milestone.title);
+        }
+
+        addModalListeners(milestoneModal, calendarCell, tempMilestone, requestType, milestone);
     }
 
-    function addModalListeners(milestoneModal, calendarCell, tempMilestone, requestType, milestoneID) {
+    function addModalListeners(milestoneModal, calendarCell, tempMilestone, requestType, milestone) {
         
         $('.btn-milestone-create').on('click', async function(event) {
             event.preventDefault();
@@ -55,16 +61,18 @@ $(function () {
             const errors = validateMilestoneInputs(milestoneData);
             if (errors.length === 0) {
 
+                let newMilestone = {};
+
                 if (requestType === "post") {
-                    const response = await axios.post(`${BASE_URL}/calendars/milestones`, milestoneData, {headers: {'X-CSRFToken': csrftoken}});
-                    const newMilestone = new Milestone(response.data);
-                    calendarCell.append(newMilestone.HTML());
+                    newMilestone = await Milestone.post(milestoneData);
                 } else if (requestType === "put") {
-                    milestoneData['id'] = milestoneID;
-                    const response = await axios.put(`${BASE_URL}/calendars/milestones`, milestoneData, {headers: {'X-CSRFToken': csrftoken}});
-                    const newMilestone = new Milestone(response.data);
-                    calendarCell.append(newMilestone.HTML());
+                    milestoneData['id'] = milestone.id;
+                    newMilestone = await Milestone.put(milestoneData)
                 }
+
+                calendarCell = $(`#${newMilestone.year}-${newMilestone.month}-${newMilestone.day}`);
+                calendarCell.append(newMilestone.HTML());
+
                 tempMilestone.remove();
             } 
 
@@ -80,13 +88,6 @@ $(function () {
         })
     }
 
-    async function deleteMilestone(milestoneID) {
-        const response = await axios.delete(`${BASE_URL}/calendars/milestones`, {data: {'milestone_id':milestoneID}, headers: {'X-CSRFToken': csrftoken}});
-    }
-
-    // async function updateMilestone(milestoneID) {
-    //     const response = await axios.post(`${BASE_URL}/calendars/milestones`, {data: {'milestone_id':milestoneID}, headers: {'X-CSRFToken': csrftoken}});
-    // }
 
     function validateMilestoneInputs(milestoneInputs) {
         return [];

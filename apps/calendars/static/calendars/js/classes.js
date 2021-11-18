@@ -3,6 +3,9 @@ const BASE_URL = window.location.origin;
 const csrftoken = Cookies.get('csrftoken');
 
 class Milestone {
+
+    static milestonesUrl = 'calendars/milestones';
+
     constructor(milestoneObj) {
         this.id = milestoneObj.id;
         this.year = milestoneObj.year;
@@ -10,6 +13,26 @@ class Milestone {
         this.day = milestoneObj.day;
         this.title = milestoneObj.title;
         this.goalID = milestoneObj.goal_id;
+    }
+
+    static async getOne(milestoneID) {
+        const response = await axios.get(`${BASE_URL}/${Milestone.milestonesUrl}/${milestoneID}`, { headers: { 'X-CSRFToken': csrftoken } });
+        return new Milestone(response.data);
+    }
+
+    static async post(milestoneData) {
+        const response = await axios.post(`${BASE_URL}/${Milestone.milestonesUrl}/`, milestoneData, { headers: { 'X-CSRFToken': csrftoken } });
+        return new Milestone(response.data);
+    }
+
+    static async put(milestoneData) {
+        const response = await axios.put(`${BASE_URL}/${Milestone.milestonesUrl}/`, milestoneData, {headers: {'X-CSRFToken': csrftoken}});
+        return new Milestone(response.data);
+    }
+
+    static async delete(milestoneID) {
+        const response = await axios.delete(`${BASE_URL}/${Milestone.milestonesUrl}/`, {data: {'milestone_id':milestoneID}, headers: {'X-CSRFToken': csrftoken}});
+        return response;
     }
 
 

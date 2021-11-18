@@ -13,8 +13,6 @@ $(async function() {
     await getMissions()
     
 
-
-
     ////////////////////////////////////////////////////////////
     ///// Build the HTML for each of the user missions     /////
     ////////////////////////////////////////////////////////////
@@ -64,7 +62,7 @@ $(async function() {
 
             missionModal.modal('hide');
             $('#mission-title').val('');
-            $('#mission-goal').val('');
+            $('#mission-description').val('');
             $('.btn-mission-create').off();
         })
 

@@ -114,20 +114,6 @@ $(function () {
         monthlyViewDiv.append(calendarHead);
     }
 
-    // Build the calendar HTML in the DOM
-    // async function buildCalendars(numberOfMonthsToShow) {
-    //     numberOfMonthsToShow = 2;
-    //     for (let i = 0; i < numberOfMonthsToShow; i++) {
-    //         const today = new Date();
-    //         const currentMonth = today.getMonth();
-    //         const currentYear = today.getFullYear();
-            
-    //         await setupCalendar(currentMonth + i, currentYear, today);
-    //     }
-    // }
-    // buildCalendars(numberOfMonthsToShow);
-
-
     async function buildCalendars(numberOfMonthsToShow, startingMonth, startingYear, today) {
         for (let i = 0; i < numberOfMonthsToShow; i++) {
             await setupCalendar(startingMonth + i, startingYear, today);
@@ -167,9 +153,5 @@ $(function () {
         }
         buildCalendars(numberOfMonthsToShow, startingMonth, startingYear, today)
     })
-
-
-
-    
     
 })

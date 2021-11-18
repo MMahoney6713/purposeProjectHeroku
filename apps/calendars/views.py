@@ -14,7 +14,7 @@ def calendars_view(request):
     return render(request, 'calendars/calendars.html')
 
 @login_required
-def milestones(request):
+def milestones(request, milestone_id = ''):
     
     if request.method == "POST":
         milestone_data = json.loads(request.body)
@@ -27,22 +27,27 @@ def milestones(request):
         return JsonResponse(new_milestone.JSON())
 
     elif request.method == "GET":
-        month = int(request.GET.get('month')) + 1 # Adjust the month value +1 based on differences between datetime objects and front end date objects
-        year = int(request.GET.get('year'))
         
-        next_month = month + 1
-        next_year = year
-        if next_month > 12:
-            next_year += 1
-            next_month = next_month%12
-        
-        month_milestones = Milestones.objects \
-            .filter(user_id = request.user.id) \
-            .filter(date__gte = date(year,month,1)) \
-            .filter(date__lt = date(next_year,next_month,1)) \
-            .order_by('date')
-        month_milestones_JSON = [{milestone.date.day: milestone.JSON()} for milestone in month_milestones]
-        return JsonResponse(month_milestones_JSON, safe=False)
+        if milestone_id:
+            milestone = Milestones.objects.filter(id = milestone_id).get()
+            return JsonResponse(milestone.JSON())
+        else:        
+            month = int(request.GET.get('month')) + 1 # Adjust the month value +1 based on differences between datetime objects and front end date objects
+            year = int(request.GET.get('year'))
+            
+            next_month = month + 1
+            next_year = year
+            if next_month > 12:
+                next_year += 1
+                next_month = next_month%12
+            
+            month_milestones = Milestones.objects \
+                .filter(user_id = request.user.id) \
+                .filter(date__gte = date(year,month,1)) \
+                .filter(date__lt = date(next_year,next_month,1)) \
+                .order_by('date')
+            month_milestones_JSON = [{milestone.date.day: milestone.JSON()} for milestone in month_milestones]
+            return JsonResponse(month_milestones_JSON, safe=False)
 
     elif request.method == "PUT":
         
