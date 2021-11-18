@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '#b1a!#&uc7k=ih7-if!z#i$i193)ok&l-7b1n2p5-(ppy8sd2y')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['life-on-purpose.herokuapp.com', '127.0.0.1', '.localhost']
 
