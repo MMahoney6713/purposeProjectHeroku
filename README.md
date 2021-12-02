@@ -1,10 +1,10 @@
 # On Purpose - a Springboard Software Engineering Capstone Project
 
-See the app (may take a minute on first load): https://life-on-purpose.herokuapp.com
+See the app: https://life-on-purpose.herokuapp.com (Note: App may take a minute to load on first open)
 
 ## Description
 
-In "On Purpose," you create your "personal mission" that defines where you want your life to end up. This characterizes the life that you want to lead, the character traits you want to embody, and the impact that you want to have on those around you. As personal missions are refined, missional goals are added along with milestones on an interactive calendar to act as markers along the trail on your journey towards fulfilling your personal missions. 
+In "On Purpose," you create your personal mission statements which collectively define where you want your life to end up. These statements characterize the life that you want to lead, the character traits you want to embody, and the impact that you want to have on those around you. As personal missions are refined, missional goals are added along with milestones to achieve those goals, all on an interactive calendar to use as markers along the trail on your life journey.
 
 For this project, I focused on learning a new back-end framework - Django. With extensive Flask/Python experience, I wanted to build a web app from scratch using Django to better understand some of the differences that exist between the two frameworks. 
 
