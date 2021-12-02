@@ -8,10 +8,10 @@ For this project, I focused on learning a new back-end framework - Django. With 
 
 
 # Technologies used
-Django / Django-Allauth
-HTML / CSS / JavaScript / JQuery / Bootstrap
-PostgreSQL
-Heroku
+- Django / Django-Allauth
+- HTML / CSS / JavaScript / JQuery / Bootstrap
+- PostgreSQL
+- Heroku
 
 # Development Roadmap
 - A "Profile" section, to allow users to update their account information
